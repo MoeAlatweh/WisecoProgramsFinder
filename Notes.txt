@@ -1,0 +1,44 @@
+-Notes for App Packaging
+Kivy use Pyinstaller to packag the app for Widows 
+-------------------------------------------------
+Steps:
+-Install Pyinstaller library whether using the Terminal or from  Pycharm setting
+-Create and activate the virtual environment (if needed)(on Terminal inside Pycharm itself)
+ -- This App use the default virtual environment comes with Python (venv)
+-Make sure All libraries installed by typing: pip freeze
+-Change directory to path where you want to package the app by typing:
+ -- cd C:\Users\Alatweh\Desktop\WisecoApplications\WisecoProgramsFinder
+-If packaging the app with python file ext (Main.py) it will create the excutaple app with windows console
+ - ie: everytime run the app the console window will pop up with the app and close when you close the app
+ - to avoid that need to packag the app with python file ext (Main.pyw) instead
+ - to change the python file extinsion goto command prompt from start button
+ - change the directory by typing: cd C:\Users\Alatweh\Desktop\WisecoApplications\WisecoProgramsFinder
+ - then rename the file by typing: ren Main.py Main.pyw
+-Back to Terminal in Pycharm and type:
+ -- python -m PyInstaller --name WisecoProgramsFinder C:\Users\Alatweh\Desktop\WisecoApplications\WisecoProgramsFinder\Main.pyw  >> after (--name) enter 'the app name', enter space then enter the 'script path'  
+ - if it run successfully it will create the package but still need to add the dependents on the spec file that created
+-(optional)If need to custom icon for the app type:
+ -- python -m PyInstaller --name WisecoProgramsFinder --icon C:\Users\Alatweh\Desktop\WisecoApplications\WisecoProgramsFinder\WisecoLogoIcon\Wise
+    colcon.ico C:\Users\Alatweh\Desktop\WisecoApplications\WisecoProgramsFinder\Main.pyw
+ --- >> after (--name) enter 'the app name', after (--icon) enter 'icon path',enter space then enter the 'script path'
+  - make sure it run successfully
+  -- to create icon dowmload image from website and covert it to icon by use https://icoconvert.com/
+-Open the spec file and add the following:
+  -in the top on file add: from kivy_deps import sdl2 , glew
+  -after 'coll = COLLECT(exe,' TYPE 'Tree('C:\\Users\\Alatweh\\Desktop\\WisecoApplications\\WisecoProgramsFinder\\'),'
+  - between 'a.datas,'
+             TYPE  '*[Tree(p) for p in (sdl2.dep_bins + glew.dep_bins)],'
+             'strip=False,'    
+-After modify the spec file goto Pycharm Terminal and type:
+  - python -m PyInstaller WisecoProgramsFinder.spec
+  - make sure it run successfully
+-Open WisecoProgramsFinder folder inside dist folder  (whole path: C:\Users\Alatweh\Desktop\WisecoApplications\WisecoProgramsFinder\dist\WisecoProgramsFinder) 
+  -find the file and Delete it (libpng16-16.dll)
+-Because the steps before package kivy app only, non of kivymd file will come with, that's need to add manually
+  - go to the main python file you install the kivymd inside 
+  - in my labtop case it is locate in:
+  - C:\Users\Alatweh\PycharmProjects\SearchFileProject\venv\Lib\site-packages
+  - find kivymd folder and copy it 
+  - goto WisecoProgramsFinder folder inside dist folder  (whole path: C:\Users\Alatweh\Desktop\WisecoApplications\WisecoProgramsFinder\dist\WisecoProgramsFinder)
+  - past kivymd folder inside it 
+-Create shortcut wherever you like and engoy in your app     
