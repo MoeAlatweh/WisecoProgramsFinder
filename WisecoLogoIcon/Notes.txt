@@ -40,5 +40,5 @@ Steps:
   - C:\Users\Alatweh\PycharmProjects\SearchFileProject\venv\Lib\site-packages
   - find kivymd folder and copy it 
   - goto WisecoProgramsFinder folder inside dist folder  (whole path: C:\Users\Alatweh\Desktop\WisecoApplications\WisecoProgramsFinder\dist\WisecoProgramsFinder)
-  - past kivymd folder inside it 
+  - paste kivymd folder inside it 
 -Create shortcut wherever you like and engoy in your app     
