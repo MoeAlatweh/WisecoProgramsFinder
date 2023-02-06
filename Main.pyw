@@ -2,7 +2,7 @@
 ## APP NAME:
 # WisecoProgramsFinder
 ## VERSION:
-# WisecoProgramsFinderVersion0.0.2
+# WisecoProgramsFinderVersion0.0.3
 ## Language:
 # Python 3.7
 ## Framwork:
@@ -37,7 +37,7 @@ from kivymd.uix.boxlayout import MDBoxLayout
 # FROM kivymd.uix.screen IMPORT Screen TO USE IT TO DISPLAY THE APP.
 from kivymd.uix.screen import Screen
 # FROM kivy.uix.image IMPORT (AsyncImage) IF NEED TO USE IMAGE FROM WEBSITE , USE (Image) IF PHOTO ON LOCAL COMPUTER
-from kivy.uix.image import AsyncImage
+from kivy.uix.image import AsyncImage, Image
 # USE MDDialog TO SHOW DIALOG WINDOW OF RESULT OF JOB SEARCH
 from kivymd.uix.dialog import MDDialog
 # FROM kivy.lang IMPORT Builder THAT'S A METHOD TO CREATE THE TEXT INPUT
@@ -102,8 +102,9 @@ class WisecoProgramsFinder(MDApp,Widget):
         AppBoxLayout = MDBoxLayout(orientation='vertical', spacing=20, padding=15 , md_bg_color= [32/255.0, 32/255.0, 32/255.0, 1])
 
         # TO ADD PICTURE FOR THE APP FROM WEBSITE
-        AppImage = AsyncImage(source='https://www.wiseco.com/Images/Downloads/Wiseco_Black_CMYK.gif', size_hint_y=None,
-                              height=70, allow_stretch=True, pos_hint={'center_x': 0.5, 'center_y': 0.90} , color= [150/255.0, 0/255.0, 0/255.0, 1])
+        AppImage = Image(source=r'H:\CNC_Programming\WisecoApplications\WisecoApplicationsLogo/Wiseco.gif',
+                         size_hint_y=None, height=70, allow_stretch=True, pos_hint={'center_x': 0.5, 'center_y': 0.90},
+                         color=[150/255.0, 0/255.0, 0/255.0, 1])
         # TO ADD AppImage TO AppBoxLayout TO DISPLAY IT IN THE APP SCREEN
         AppBoxLayout.add_widget(AppImage)
 
@@ -350,7 +351,7 @@ class WisecoProgramsFinder(MDApp,Widget):
         # (halign='right') USED TO LOCATE THE LABEL ON THE RIGHT OF THE SCREEN
         # text_color=(175/255.0, 0/255.0, 0/255.0, 1)) : USED RGB VALUE METHOD TO CUSTOM A COLOR
         # (font_style='Subtitle2') : IT IS CUSTOM FONT COMES WITH MDLabel
-        DeveloperInfo = MDLabel(text='Version 0.0.2               ''\n''Created by: Moemen Alatweh''\n'' malatweh@rwbteam.com   ', halign='right',
+        DeveloperInfo = MDLabel(text='Version 0.0.3               ''\n''Created by: Moemen Alatweh''\n'' malatweh@rwbteam.com   ', halign='right',
                                 theme_text_color='Custom', text_color=(175/255.0, 0/255.0, 0/255.0, 1),
                                 font_style='Caption')
         # ADD DeveloperInfo TO AppBoxLayout TO DISPLAY IT IN THE APP SCREEN.
@@ -933,7 +934,9 @@ class WisecoProgramsFinder(MDApp,Widget):
         # THEN SHOW ALL PROGRAMS FOUND IN DIALOG WINDOW
         # ('\n'.join(result_of_existing_programs) : IT USED TO PRINT EACH ITEM IN THE LIST IN SEPARATE LINE INSTEAD ALL OF THEM IN THE SAME LINE(THE DEFAULT)
         elif ((result_of_existing_programs != []) and len(result_of_existing_programs) <= 50):
-            self.Search_Result = MDDialog(title='[color=ffffff]Programs Found:[/color]', text=('\n'.join(result_of_existing_programs)), size_hint=(0.7,1.0), buttons=[Close_Button])
+            self.Search_Result = MDDialog(title='[color=ffffff]Programs Found:[/color]',
+                                          text=('[color=ffffff]' + '\n'.join(result_of_existing_programs) + '[/color]'),
+                                          size_hint=(0.7, 1.0), buttons=[Close_Button])
             # TO OPEN THE DIALOG WINDOW
             self.Search_Result.open()
 

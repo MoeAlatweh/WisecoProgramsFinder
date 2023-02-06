@@ -1,6 +1,8 @@
 #+++++-------App Notes-------+++++#
 ## APP NAME:
 # WisecoProgramsFinder
+## VERSION:
+# WisecoProgramsFinderVersion0.0.3
 ## Language:
 # Python 3.7
 ## Framwork:
@@ -35,7 +37,7 @@ from kivymd.uix.boxlayout import MDBoxLayout
 # FROM kivymd.uix.screen IMPORT Screen TO USE IT TO DISPLAY THE APP.
 from kivymd.uix.screen import Screen
 # FROM kivy.uix.image IMPORT (AsyncImage) IF NEED TO USE IMAGE FROM WEBSITE , USE (Image) IF PHOTO ON LOCAL COMPUTER
-from kivy.uix.image import AsyncImage
+from kivy.uix.image import AsyncImage, Image
 # USE MDDialog TO SHOW DIALOG WINDOW OF RESULT OF JOB SEARCH
 from kivymd.uix.dialog import MDDialog
 # FROM kivy.lang IMPORT Builder THAT'S A METHOD TO CREATE THE TEXT INPUT
@@ -55,6 +57,7 @@ Directory_Path_builder = """
 MDTextField:
     hint_text: "Directory Path"
     text: "H:\CNCProgs"
+    line_color_focus: 1, 1, 1, 1
     pos_hint: {'center_x': 0.5, 'center_y': 0.75}
     size_hint_x:None
     width:300
@@ -67,6 +70,7 @@ MDTextField:
     hint_text: "Enter Job Number"
     helper_text: "Enter job number without (P) nor any extension."
     helper_text_mode: "on_focus"
+    line_color_focus: 1, 1, 1, 1
     pos_hint: {'center_x': 0.5, 'center_y': 0.70}
     size_hint_x:None
     width:300
@@ -81,7 +85,7 @@ class WisecoProgramsFinder(MDApp,Widget):
     # (self PARAMETER IS A REFERENCE TO THE CURRENT INSTANCE OF CLASS, AND IT USED TO ACCESS VARIABLES THAT BELONGS TO THE CLASS.)
     def build(self):
         # TO CONTROL SIZE OF THE SCREEN (Window.size = (WIDTH, HEIGHT))
-        Window.size = (900, 650)
+        Window.size = (900, 660)
         # TO CHOOSE BACKGROUND MODE OF APP WHETHER DARK OR LIGHT
         self.theme_cls.theme_style = "Dark"
         # TO SET DEFAULT COLOR OF APP ELEMENTS(LABELS,BUTTONS...ETC)
@@ -98,8 +102,9 @@ class WisecoProgramsFinder(MDApp,Widget):
         AppBoxLayout = MDBoxLayout(orientation='vertical', spacing=20, padding=15 , md_bg_color= [32/255.0, 32/255.0, 32/255.0, 1])
 
         # TO ADD PICTURE FOR THE APP FROM WEBSITE
-        AppImage = AsyncImage(source='https://www.wiseco.com/Images/Downloads/Wiseco_Black_CMYK.gif', size_hint_y=None,
-                              height=70, allow_stretch=True, pos_hint={'center_x': 0.5, 'center_y': 0.90} , color= [150/255.0, 0/255.0, 0/255.0, 1])
+        AppImage = Image(source=r'H:\CNC_Programming\WisecoApplications\WisecoApplicationsLogo/Wiseco.gif',
+                         size_hint_y=None, height=70, allow_stretch=True, pos_hint={'center_x': 0.5, 'center_y': 0.90},
+                         color=[150/255.0, 0/255.0, 0/255.0, 1])
         # TO ADD AppImage TO AppBoxLayout TO DISPLAY IT IN THE APP SCREEN
         AppBoxLayout.add_widget(AppImage)
 
@@ -346,7 +351,7 @@ class WisecoProgramsFinder(MDApp,Widget):
         # (halign='right') USED TO LOCATE THE LABEL ON THE RIGHT OF THE SCREEN
         # text_color=(175/255.0, 0/255.0, 0/255.0, 1)) : USED RGB VALUE METHOD TO CUSTOM A COLOR
         # (font_style='Subtitle2') : IT IS CUSTOM FONT COMES WITH MDLabel
-        DeveloperInfo = MDLabel(text='Created by: Moemen Alatweh''\n'' malatweh@rwbteam.com   ', halign='right',
+        DeveloperInfo = MDLabel(text='Version 0.0.3               ''\n''Created by: Moemen Alatweh''\n'' malatweh@rwbteam.com   ', halign='right',
                                 theme_text_color='Custom', text_color=(175/255.0, 0/255.0, 0/255.0, 1),
                                 font_style='Caption')
         # ADD DeveloperInfo TO AppBoxLayout TO DISPLAY IT IN THE APP SCREEN.
@@ -402,15 +407,23 @@ class WisecoProgramsFinder(MDApp,Widget):
         if ((((self.Directory_Path.text + '\\HOREBORE\\P' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HOREBORE\\P' + self.Job_Number.text.upper() + 'TO0.MIN') in result_of_existing_programs and
               (self.Directory_Path.text + '\\HOREBORE\\P' + self.Job_Number.text.upper() + 'TO180.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HOREBORE\\P' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HOREBORE\\P' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\HOREBORE\\P' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HOREBORE\\P' + self.Job_Number.text.upper() + 'TO0.min') in result_of_existing_programs and
               (self.Directory_Path.text + '\\HOREBORE\\P' + self.Job_Number.text.upper() + 'TO180.min') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HOREBORE\\P' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HOREBORE\\P' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\HOREBORE\\p' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HOREBORE\\p' + self.Job_Number.text.upper() + 'TO0.MIN') in result_of_existing_programs and
               (self.Directory_Path.text + '\\HOREBORE\\p' + self.Job_Number.text.upper() + 'TO180.MIN') in result_of_existing_programs) or
-            ((self.Directory_Path.text + '\\HOREBORE\\p' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs)or
+             ((self.Directory_Path.text + '\\HOREBORE\\p' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HOREBORE\\p' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
+            ((self.Directory_Path.text + '\\HOREBORE\\p' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HOREBORE\\p' + self.Job_Number.text.upper() + 'TO0.min') in result_of_existing_programs and
-              (self.Directory_Path.text + '\\HOREBORE\\p' + self.Job_Number.text.upper() + 'TO180.min') in result_of_existing_programs)) and (self.Job_Number.text !='')):
+              (self.Directory_Path.text + '\\HOREBORE\\p' + self.Job_Number.text.upper() + 'TO180.min') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HOREBORE\\p' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HOREBORE\\p' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs)) and (self.Job_Number.text !='')):
                 print(self.Job_Number.text +' IS EXIST IN HOREBORE FOLDER')
                 self.Horebore.text_color = (0.0, 1.0, 0.0, 1.0)
 
@@ -418,15 +431,23 @@ class WisecoProgramsFinder(MDApp,Widget):
         if ((((self.Directory_Path.text + '\\HOREBORE ORIGINAL\\P' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HOREBORE ORIGINAL\\P' + self.Job_Number.text.upper() + 'TO0.MIN') in result_of_existing_programs and
               (self.Directory_Path.text + '\\HOREBORE ORIGINAL\\P' + self.Job_Number.text.upper() + 'TO180.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HOREBORE ORIGINAL\\P' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HOREBORE ORIGINAL\\P' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\HOREBORE ORIGINAL\\P' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HOREBORE ORIGINAL\\P' + self.Job_Number.text.upper() + 'TO0.min') in result_of_existing_programs and
               (self.Directory_Path.text + '\\HOREBORE ORIGINAL\\P' + self.Job_Number.text.upper() + 'TO180.min') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HOREBORE ORIGINAL\\P' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HOREBORE ORIGINAL\\P' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\HOREBORE ORIGINAL\\p' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HOREBORE ORIGINAL\\p' + self.Job_Number.text.upper() + 'TO0.MIN') in result_of_existing_programs and
               (self.Directory_Path.text + '\\HOREBORE ORIGINAL\\p' + self.Job_Number.text.upper() + 'TO180.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HOREBORE ORIGINAL\\p' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HOREBORE ORIGINAL\\p' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\HOREBORE ORIGINAL\\p' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HOREBORE ORIGINAL\\p' + self.Job_Number.text.upper() + 'TO0.min') in result_of_existing_programs and
-              (self.Directory_Path.text + '\\HOREBORE ORIGINAL\\p' + self.Job_Number.text.upper() + 'TO180.min') in result_of_existing_programs)) and (self.Job_Number.text !='')):
+              (self.Directory_Path.text + '\\HOREBORE ORIGINAL\\p' + self.Job_Number.text.upper() + 'TO180.min') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HOREBORE ORIGINAL\\p' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HOREBORE ORIGINAL\\p' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs)) and (self.Job_Number.text !='')):
                 print(self.Job_Number.text +' IS EXIST IN HOREBORE ORIGINAL FOLDER')
                 self.Horebore_Original.text_color = (1.0, 1.0, 0.0, 1.0)
 
@@ -434,15 +455,23 @@ class WisecoProgramsFinder(MDApp,Widget):
         if ((((self.Directory_Path.text + '\\HORIZONTAL 127\\P' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HORIZONTAL 127\\P' + self.Job_Number.text.upper() + 'TO0.MIN') in result_of_existing_programs and
               (self.Directory_Path.text + '\\HORIZONTAL 127\\P' + self.Job_Number.text.upper() + 'TO180.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HORIZONTAL 127\\P' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HORIZONTAL 127\\P' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\HORIZONTAL 127\\P' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HORIZONTAL 127\\P' + self.Job_Number.text.upper() + 'TO0.min') in result_of_existing_programs and
               (self.Directory_Path.text + '\\HORIZONTAL 127\\P' + self.Job_Number.text.upper() + 'TO180.min') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HORIZONTAL 127\\P' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HORIZONTAL 127\\P' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\HORIZONTAL 127\\p' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HORIZONTAL 127\\p' + self.Job_Number.text.upper() + 'TO0.MIN') in result_of_existing_programs and
               (self.Directory_Path.text + '\\HORIZONTAL 127\\p' + self.Job_Number.text.upper() + 'TO180.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HORIZONTAL 127\\p' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HORIZONTAL 127\\p' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\HORIZONTAL 127\\p' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HORIZONTAL 127\\p' + self.Job_Number.text.upper() + 'TO0.min') in result_of_existing_programs and
-              (self.Directory_Path.text + '\\HORIZONTAL 127\\p' + self.Job_Number.text.upper() + 'TO180.min') in result_of_existing_programs)) and (self.Job_Number.text !='')):
+              (self.Directory_Path.text + '\\HORIZONTAL 127\\p' + self.Job_Number.text.upper() + 'TO180.min') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HORIZONTAL 127\\p' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HORIZONTAL 127\\p' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs)) and (self.Job_Number.text !='')):
                 print(self.Job_Number.text + ' IS EXIST IN HORIZONTAL 127 FOLDER')
                 self.Horebore_127.text_color = (0.0, 1.0, 0.0, 1.0)
 
@@ -450,15 +479,23 @@ class WisecoProgramsFinder(MDApp,Widget):
         if ((((self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\P' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\P' + self.Job_Number.text.upper() + 'TO0.MIN') in result_of_existing_programs and
               (self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\P' + self.Job_Number.text.upper() + 'TO180.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\P' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\P' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\P' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
-             ((self.Directory_Path.text + '\\HORIZONTAL 127\\P' + self.Job_Number.text.upper() + 'TO0.min') in result_of_existing_programs and
-              (self.Directory_Path.text + '\\HORIZONTAL 127\\P' + self.Job_Number.text.upper() + 'TO180.min') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\P' + self.Job_Number.text.upper() + 'TO0.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\P' + self.Job_Number.text.upper() + 'TO180.min') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\P' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\P' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\p' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\p' + self.Job_Number.text.upper() + 'TO0.MIN') in result_of_existing_programs and
               (self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\p' + self.Job_Number.text.upper() + 'TO180.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\p' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\p' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\p' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\p' + self.Job_Number.text.upper() + 'TO0.min') in result_of_existing_programs and
-              (self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\p' + self.Job_Number.text.upper() + 'TO180.min') in result_of_existing_programs)) and (self.Job_Number.text !='')):
+              (self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\p' + self.Job_Number.text.upper() + 'TO180.min') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\p' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\HORIZONTAL 127 ORIGINAL\\p' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs)) and (self.Job_Number.text !='')):
                 print(self.Job_Number.text + ' IS EXIST IN HORIZONTAL 127 ORIGINAL FOLDER')
                 self.Horebore_127_Original.text_color = (1.0, 1.0, 0.0, 1.0)
 
@@ -534,48 +571,80 @@ class WisecoProgramsFinder(MDApp,Widget):
         #++---Okuma Dome Mills FILE---++#
         if ((((self.Directory_Path.text + '\\Okuma Dome Mills\\P' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\Okuma Dome Mills\\P' + self.Job_Number.text.upper() + 'LR.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\Okuma Dome Mills\\P' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Dome Mills\\P' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\Okuma Dome Mills\\P' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\Okuma Dome Mills\\P' + self.Job_Number.text.upper() + 'LR.min') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\Okuma Dome Mills\\P' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Dome Mills\\P' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\Okuma Dome Mills\\p' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\Okuma Dome Mills\\p' + self.Job_Number.text.upper() + 'LR.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\Okuma Dome Mills\\p' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Dome Mills\\p' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\Okuma Dome Mills\\p' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
-             ((self.Directory_Path.text + '\\Okuma Dome Mills\\p' + self.Job_Number.text.upper() + 'LR.min') in result_of_existing_programs)) and (self.Job_Number.text != '')):
+             ((self.Directory_Path.text + '\\Okuma Dome Mills\\p' + self.Job_Number.text.upper() + 'LR.min') in result_of_existing_programs)or
+             ((self.Directory_Path.text + '\\Okuma Dome Mills\\p' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Dome Mills\\p' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs)) and (self.Job_Number.text != '')):
                 print(self.Job_Number.text + ' IS EXIST IN Okuma Dome Mills FOLDER')
                 self.Okuma_Dome.text_color = (0.0, 1.0, 0.0, 1.0)
 
         #++---Okuma Dome Originals FILE---++#
         if ((((self.Directory_Path.text + '\\Okuma Dome Originals\\P' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\Okuma Dome Originals\\P' + self.Job_Number.text.upper() + 'LR.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\Okuma Dome Originals\\P' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Dome Originals\\P' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\Okuma Dome Originals\\P' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\Okuma Dome Originals\\P' + self.Job_Number.text.upper() + 'LR.min') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\Okuma Dome Originals\\P' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Dome Originals\\P' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\Okuma Dome Originals\\p' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\Okuma Dome Originals\\p' + self.Job_Number.text.upper() + 'LR.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\Okuma Dome Originals\\p' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Dome Originals\\p' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\Okuma Dome Originals\\p' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
-             ((self.Directory_Path.text + '\\Okuma Dome Originals\\p' + self.Job_Number.text.upper() + 'LR.min') in result_of_existing_programs)) and ( self.Job_Number.text != '')):
+             ((self.Directory_Path.text + '\\Okuma Dome Originals\\p' + self.Job_Number.text.upper() + 'LR.min') in result_of_existing_programs)or
+             ((self.Directory_Path.text + '\\Okuma Dome Originals\\p' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Dome Originals\\p' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs)) and (self.Job_Number.text != '')):
                 print(self.Job_Number.text + ' IS EXIST IN Okuma Dome Originals FOLDER')
                 self.Okuma_Dome_Original.text_color = (1.0, 1.0, 0.0, 1.0)
 
         #++---Okuma Skirt Mills FILE---++#
         if ((((self.Directory_Path.text + '\\Okuma Skirt Mills\\P' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\Okuma Skirt Mills\\P' + self.Job_Number.text.upper() + 'LR.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\Okuma Skirt Mills\\P' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Skirt Mills\\P' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\Okuma Skirt Mills\\P' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\Okuma Skirt Mills\\P' + self.Job_Number.text.upper() + 'LR.min') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\Okuma Skirt Mills\\P' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Skirt Mills\\P' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\Okuma Skirt Mills\\p' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\Okuma Skirt Mills\\p' + self.Job_Number.text.upper() + 'LR.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\Okuma Skirt Mills\\p' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Skirt Mills\\p' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\Okuma Skirt Mills\\p' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
-             ((self.Directory_Path.text + '\\Okuma Skirt Mills\\p' + self.Job_Number.text.upper() + 'LR.min') in result_of_existing_programs)) and (self.Job_Number.text != '')):
+             ((self.Directory_Path.text + '\\Okuma Skirt Mills\\p' + self.Job_Number.text.upper() + 'LR.min') in result_of_existing_programs)or
+             ((self.Directory_Path.text + '\\Okuma Skirt Mills\\p' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Skirt Mills\\p' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs)) and (self.Job_Number.text != '')):
                 print(self.Job_Number.text + ' IS EXIST IN Okuma Skirt Mills FOLDER')
                 self.Okuma_Skirt.text_color = (0.0, 1.0, 0.0, 1.0)
 
         #++---Okuma Skirt Originals FILE---++#
         if ((((self.Directory_Path.text + '\\Okuma Skirt Originals\\P' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\Okuma Skirt Originals\\P' + self.Job_Number.text.upper() + 'LR.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\Okuma Skirt Originals\\P' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Skirt Originals\\P' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\Okuma Skirt Originals\\P' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\Okuma Skirt Originals\\P' + self.Job_Number.text.upper() + 'LR.min') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\Okuma Skirt Originals\\P' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Skirt Originals\\P' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\Okuma Skirt Originals\\p' + self.Job_Number.text.upper() + '.MIN') in result_of_existing_programs) or
              ((self.Directory_Path.text + '\\Okuma Skirt Originals\\p' + self.Job_Number.text.upper() + 'LR.MIN') in result_of_existing_programs) or
+             ((self.Directory_Path.text + '\\Okuma Skirt Originals\\p' + self.Job_Number.text.upper() + 'L.MIN') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Skirt Originals\\p' + self.Job_Number.text.upper() + 'R.MIN') in result_of_existing_programs) or
             ((self.Directory_Path.text + '\\Okuma Skirt Originals\\p' + self.Job_Number.text.upper() + '.min') in result_of_existing_programs) or
-             ((self.Directory_Path.text + '\\Okuma Skirt Originals\\p' + self.Job_Number.text.upper() + 'LR.min') in result_of_existing_programs)) and (self.Job_Number.text != '')):
+             ((self.Directory_Path.text + '\\Okuma Skirt Originals\\p' + self.Job_Number.text.upper() + 'LR.min') in result_of_existing_programs)or
+             ((self.Directory_Path.text + '\\Okuma Skirt Originals\\p' + self.Job_Number.text.upper() + 'L.min') in result_of_existing_programs and
+              (self.Directory_Path.text + '\\Okuma Skirt Originals\\p' + self.Job_Number.text.upper() + 'R.min') in result_of_existing_programs)) and (self.Job_Number.text != '')):
                 print(self.Job_Number.text + ' IS EXIST IN Okuma Skirt Originals FOLDER')
                 self.Okuma_Skirt_Original.text_color = (1.0, 1.0, 0.0, 1.0)
 
@@ -846,16 +915,18 @@ class WisecoProgramsFinder(MDApp,Widget):
         # WHEN PRESS THE BUTTON , IT CALLED CloseDialog FUNCTION TO CLOSE THE DIALOG WINDOW
         Close_Button= MDRectangleFlatButton(text='Close', on_release=self.CloseDialog)
         # IF DIRECTORY OR JOB NUMBER FIELDS ARE EMPTY, IT WILL OPEN THE DIALOG WITH MESSAGE THAT NEED TO ENTER THEM
+        # ('[color=ffffff]Programs Found:[/color]'): TO CHANGE COLOR OF title TEXT, (ffffff): IS THE WHITE COLOR
+        # (auto_dismiss= False) : TO TURN OFF THE AUTO CLOSE DIALOG WHEN USER CLICK ON SPACE,*ie: THE ONLY WAY TO CLOSE IT TO CLICK THE Close BUTTOM*
         if ((self.Directory_Path.text is "") or (self.Job_Number.text is "")):
-            self.Search_Result = MDDialog(title='Programs Found:', text=("Please Enter Directory Path and Job Number"),
-                                          size_hint=(0.7, 1.0), buttons=[Close_Button])
+            self.Search_Result = MDDialog(title='[color=ffffff]Programs Found:[/color]', text=("Please Enter Directory Path and Job Number"),
+                                          size_hint=(0.7, 1.0), buttons=[Close_Button], auto_dismiss= False)
             # TO OPEN THE DIALOG WINDOW
             self.Search_Result.open()
 
         # IF THERE IS NO PROGRAM FOUND(ie:RESULT LIST IS EMPTY), IT WILL OPEN THE DIALOG WITH MESSAGE THAT "NO Programs Found"
         elif ((result_of_existing_programs == [])):
-            self.Search_Result = MDDialog(title='Programs Found:', text=("NO Programs Found"),
-                                          size_hint=(0.7, 1.0), buttons=[Close_Button])
+            self.Search_Result = MDDialog(title='[color=ffffff]Programs Found:[/color]', text=("NO Programs Found"),
+                                          size_hint=(0.7, 1.0), buttons=[Close_Button], auto_dismiss= False)
             # TO OPEN THE DIALOG WINDOW
             self.Search_Result.open()
 
@@ -863,7 +934,9 @@ class WisecoProgramsFinder(MDApp,Widget):
         # THEN SHOW ALL PROGRAMS FOUND IN DIALOG WINDOW
         # ('\n'.join(result_of_existing_programs) : IT USED TO PRINT EACH ITEM IN THE LIST IN SEPARATE LINE INSTEAD ALL OF THEM IN THE SAME LINE(THE DEFAULT)
         elif ((result_of_existing_programs != []) and len(result_of_existing_programs) <= 50):
-            self.Search_Result = MDDialog(title='Programs Found:', text=('\n'.join(result_of_existing_programs)), size_hint=(0.7,1.0), buttons=[Close_Button])
+            self.Search_Result = MDDialog(title='[color=ffffff]Programs Found:[/color]',
+                                          text=('[color=ffffff]' + '\n'.join(result_of_existing_programs) + '[/color]'),
+                                          size_hint=(0.7, 1.0), buttons=[Close_Button])
             # TO OPEN THE DIALOG WINDOW
             self.Search_Result.open()
 
@@ -871,8 +944,8 @@ class WisecoProgramsFinder(MDApp,Widget):
         # THEN, IT WILL OPEN THE DIALOG WITH MESSAGE SAYS THAT CANT SHOW THE RESULT AND NEED TO BE MORE SPECIFIC, NEED TO AVOID APP CRASH FOR EXCEEDING MEMORY
         elif ((result_of_existing_programs != []) and len(result_of_existing_programs) >= 50):
             print('Results is more than the window can display, Please be more SPECIFIC. /    ^__^    \ ')
-            self.Search_Result = MDDialog(title='Programs Found:', text=("Results is more than the window can display, Please be more SPECIFIC. /    ^__^    \ "),
-                                            size_hint=(0.7, 1.0), buttons=[Close_Button])
+            self.Search_Result = MDDialog(title='[color=ffffff]Programs Found:[/color]', text=("Results is more than the window can display, Please be more SPECIFIC. /    ^__^    \ "),
+                                            size_hint=(0.7, 1.0), buttons=[Close_Button], auto_dismiss= False)
             # TO OPEN THE DIALOG WINDOW
             self.Search_Result.open()
 
@@ -884,8 +957,8 @@ class WisecoProgramsFinder(MDApp,Widget):
                     NotImplementedError,MemoryError, ZeroDivisionError,FileNotFoundError,AssertionError,AttributeError,EOFError,FloatingPointError,
                     GeneratorExit,OverflowError,ReferenceError,StopIteration,IndentationError,TabError,SystemError,SystemExit,UnboundLocalError,
                     UnicodeError,UnicodeEncodeError,UnicodeDecodeError,UnicodeTranslateError,):
-                self.Search_Result = MDDialog(title='Programs Found:', text=("Unexpected error:", err),
-                                              size_hint=(0.7, 1.0), buttons=[Close_Button])
+                self.Search_Result = MDDialog(title='[color=990000]Warning Message[/color]', text=("Unexpected error:", err),
+                                              size_hint=(0.7, 1.0), buttons=[Close_Button], auto_dismiss= False)
                 # TO OPEN THE RESULT WINDOW
                 self.Search_Result.open()
 

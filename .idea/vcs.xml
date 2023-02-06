@@ -2,5 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dist/WisecoProgramsFinder" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dist/WisecoProgramsFinder/dist/WisecoProgramsFinder0.0.2" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/dist/WisecoProgramsFinder0.0.2" vcs="Git" />
   </component>
 </project>

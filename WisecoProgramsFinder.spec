@@ -5,8 +5,8 @@ from kivy_deps import sdl2 , glew
 block_cipher = None
 
 
-a = Analysis(['C:\\Users\\Alatweh\\Desktop\\WisecoApplications\\WisecoProgramsFinder\\Main.pyw'],
-             pathex=['C:\\Users\\Alatweh\\Desktop\\WisecoApplications\\WisecoProgramsFinder'],
+a = Analysis(['C:\\Users\\malatweh\\PycharmProjects\\WisecoApplications\\WisecoProgramsFinder\\Main.pyw'],
+             pathex=['C:\\Users\\malatweh\\PycharmProjects\\WisecoApplications\\WisecoProgramsFinder'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -28,8 +28,8 @@ exe = EXE(pyz,
           bootloader_ignore_signals=False,
           strip=False,
           upx=True,
-          console=False , icon='C:\\Users\\Alatweh\\Desktop\\WisecoApplications\\WisecoProgramsFinder\\WisecoLogoIcon\\Wisecolcon.ico')
-coll = COLLECT(exe, Tree('C:\\Users\\Alatweh\\Desktop\\WisecoApplications\\WisecoProgramsFinder\\'),
+          console=False , icon='C:\\Users\\malatweh\\PycharmProjects\\WisecoApplications\\WisecoProgramsFinder\\WisecoLogoIcon\\Wisecolcon.ico')
+coll = COLLECT(exe, Tree('C:\\Users\\malatweh\\PycharmProjects\\WisecoApplications\\WisecoProgramsFinder\\'),
                a.binaries,
                a.zipfiles,
                a.datas,
